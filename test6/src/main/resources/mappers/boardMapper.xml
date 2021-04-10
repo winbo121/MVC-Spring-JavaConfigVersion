@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board.BoardMapper">
+
+
+<select id="select" parameterType="BoardVO" resultType="java.util.Map" >
+select name, password from userinfo 
+where 1=1
+<if test="search_text != null and search_text != '' ">
+and name LIKE concat( '%', #{search_text} , '%' )
+</if> 
+ LIMIT #{start} , #{length}
+</select>
+
+
+<select id="selectCnt" parameterType="BoardVO" resultType="java.lang.Integer">
+select count(*) from userinfo
+where 1=1
+<if test="search_text != null and search_text != '' ">
+and name LIKE concat( '%', #{search_text} , '%' )
+</if> 
+</select>
+
+
+<insert id="insert" parameterType="BoardVO">
+	insert into userinfo (name,password) values (#{name},#{password})
+</insert>
+
+
+<delete id="delete" parameterType="java.util.List">
+	delete from userinfo where name IN 
+		<foreach collection="del_list" item="item" open="(" close=")" separator="," index="index">
+			#{item}
+		</foreach>
+</delete>
+
+
+<select id="read" parameterType="BoardVO" resultType="BoardVO">
+	select name, password from userinfo where name= #{name}
+</select>
+
+
+<update id="update" parameterType="BoardVO">
+	update userinfo set password = #{password} where name = #{name}
+</update>
+
+</mapper>
