@@ -129,8 +129,8 @@ $(document).ready(function(){
     <thead>
        <tr>
           <th><input type="checkbox" id="checkall" ></th>
-          <th>이름11</th>
-          <th>비밀번호11</th>
+          <th>이름</th>
+          <th>비밀번호</th>
        </tr>
     </thead>
     <tbody>
